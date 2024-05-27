@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autosalon.View"
         mc:Ignorable="d"
-        Title="CreateOrderView" Height="550" Width="500" MinHeight="550" MinWidth="500" MaxHeight="750" MaxWidth="700" WindowStyle ="None" Loaded="Window_Loaded" Activated="Window_Activated">
+        Title="CreateOrderView" Height="550" Width="700" ResizeMode="NoResize" WindowStyle ="None" Loaded="Window_Loaded" Activated="Window_Activated">
     <!--<Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,12 +26,31 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Source="C:\Users\myka1\source\repos\autosalon\autosalon\bin\Debug\Resources\Иконка.png" Stretch="Uniform"/>
-            <TextBlock Grid.Column="1" Text="Работа с каталогом" Style="{DynamicResource TitleText}"/>
+            <TextBlock Grid.Column="1" Text="Корзина" Style="{DynamicResource TitleText}"/>
             <Button x:Name="BtnClose" Click="BtnClose_Click" Grid.Column="2" Content="Назад" FontSize="18" Style="{DynamicResource SecondBtn}"/>
         </Grid>
         <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
             <Image Stretch="Fill" Source="C:\Users\myka1\source\repos\autosalon\autosalon\bin\Debug\Resources\фон.png" Grid.ColumnSpan="3"/>
-            <Label VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="30" Foreground="White" Name="Summ"/>
+            <DataGrid  x:Name="dgOrder" Grid.Row="0" AutoGenerateColumns="False" IsReadOnly="True" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Название"   Binding="{Binding Name}" Width="2*"/>
+                    <DataGridTextColumn Header="Описание"   Binding="{Binding Description}" Width="4*"/>
+                    <DataGridTextColumn Header="Цена"   Binding="{Binding Price}" Width="*"/>
+                    <DataGridTemplateColumn   Header="Действия"   Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="butDel" Content="Удалить" Width="60" Click="butDel_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        <Label VerticalAlignment="Bottom" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="30" Foreground="Black" Name="Summ"/>
         </Grid>
         <Grid Grid.Row="2" Style="{DynamicResource FootHead}">
             <Grid.ColumnDefinitions>

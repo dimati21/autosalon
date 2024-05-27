@@ -23,10 +23,11 @@ namespace autosalon.View
     {
         public int summ = 0;
         public int secondsumm = 0;
-        public OrderView(int value)
+        public double SummaOrder { get; set; }
+        public List<Classes.CarInOrder> listCarsInOrder;
+        public OrderView()
         {
             InitializeComponent();
-            summ = value;
         }
         private void ShowCars()
         {
@@ -64,26 +65,11 @@ namespace autosalon.View
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //Summ.Content = summ;
-            //var uri = new Uri($"/View/{App.dict}.xaml", UriKind.Relative);
-            //ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
-            //Application.Current.Resources.Clear();
-            //Application.Current.Resources.MergedDictionaries.Add(resourceDict);
-            //List<Entities.Creatore> categories = App.DB.Creatore.ToList();
-            //Entities.Creatore creatore = new Entities.Creatore();
-            //creatore.CreatoreName = "Все марки";
-            //creatore.CreatoreID = 0;
-            //categories.Insert(0, creatore);
-            //ListCreatore.ItemsSource = categories;
-            //ListCreatore.DisplayMemberPath = "CreatoreName";
-            //ListCreatore.SelectedValuePath = "CreatoreID";
-            //ShowCars();
+
         }
 
         private void CreateOrder_Click(object sender, RoutedEventArgs e)
         {
-            Random rnd = new Random();
-            secondsumm = rnd.Next(0, 10000);
             View.CreateOrderView createOrderView = new View.CreateOrderView();
             createOrderView.Owner = this;
             this.Hide();
@@ -97,7 +83,30 @@ namespace autosalon.View
 
         private void butInOrder_Click(object sender, RoutedEventArgs e)
         {
+            Entities.Car CarSelect = (sender as Button).DataContext as Entities.Car;
+            Classes.CarInOrder CarInOrder;
+            if (CarSelect != null)
+            {
+                int index = listCarsInOrder.FindIndex(x => x.Name == CarSelect.Name);
+                if (index < 0)
+                {
+                    CarInOrder = new Classes.CarInOrder();
+                    CarInOrder.Name = CarSelect.Name;
+                    CarInOrder.Description = CarSelect.Description;
+                    CarInOrder.CarCount = 1; 
+                    CarInOrder.Price = CarSelect.Price;
+                    listCarsInOrder.Add(CarInOrder);
+                    SummaOrder += CarInOrder.Price;
+                }
+                else         //Такой товар уже есть в заказе
+                {
+                    CarInOrder = listCarsInOrder[index];
+                    CarInOrder.CarCount = 1;
+                }
 
+                CarInOrder.TotalPrice = CarInOrder.Price * CarInOrder.CarCount;
+                Summ.Content = SummaOrder;
+            }
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -109,6 +118,7 @@ namespace autosalon.View
             Application.Current.Resources.MergedDictionaries.Add(resourceDict);
             List<Entities.Creatore> categories = App.DB.Creatore.ToList();
             Entities.Creatore creatore = new Entities.Creatore();
+            listCarsInOrder = new List<Classes.CarInOrder>();
             creatore.CreatoreName = "Все марки";
             creatore.CreatoreID = 0;
             categories.Insert(0, creatore);

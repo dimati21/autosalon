@@ -19,9 +19,24 @@ namespace autosalon.View
     /// </summary>
     public partial class CreateOrderView : Window
     {
+        OrderView createOrder;
+        List<Classes.CarInOrder> listCarsInOrder;
+        double summaOrder;
         public CreateOrderView()
         {
             InitializeComponent();
+        }
+        private void ShowOrder()
+        {
+            dgOrder.ItemsSource = null;
+            dgOrder.ItemsSource = listCarsInOrder;//Отобразить список заказанных блюд
+            summaOrder = 0;//Сначала сумму заказа обнуляем
+            //Рассчитать сумму заказанных блюд из списка
+            foreach (Classes.CarInOrder item in listCarsInOrder)
+            {
+                summaOrder += item.TotalPrice;
+            }
+            Summ.Content = "Сумма заказа " + Math.Round(summaOrder, 2);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -31,6 +46,9 @@ namespace autosalon.View
             ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
             Application.Current.Resources.Clear();
             Application.Current.Resources.MergedDictionaries.Add(resourceDict);
+            createOrder = this.Owner as OrderView;
+            listCarsInOrder = createOrder.listCarsInOrder;//Получить список заказанных блюд
+            ShowOrder();
         }
 
         private void BtnTheme_Click(object sender, RoutedEventArgs e)
@@ -52,8 +70,16 @@ namespace autosalon.View
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            OrderView order = this.Owner as OrderView;
-            Summ.Content = order.secondsumm;
+            
+        }
+
+        private void butDel_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            Classes.CarInOrder selectCarsInOrder = btn.DataContext as Classes.CarInOrder;
+            listCarsInOrder.Remove(selectCarsInOrder);
+            selectCarsInOrder.TotalPrice = selectCarsInOrder.CarCount * selectCarsInOrder.Price;
+            ShowOrder();
         }
     }
 }

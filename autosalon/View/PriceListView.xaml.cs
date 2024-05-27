@@ -23,22 +23,7 @@ namespace autosalon.View
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            //var uri = new Uri($"/View/{App.dict}.xaml", UriKind.Relative);
-            //ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
-            //Application.Current.Resources.Clear();
-            //Application.Current.Resources.MergedDictionaries.Add(resourceDict);
-            //List<Entities.Car> cars = App.DB.Car.ToList();
-            //ListProd.ItemsSource = cars;
-            //SortPrice.SelectedIndex = 0;
-            //List<Entities.Creatore> categories = App.DB.Creatore.ToList();
-            //Entities.Creatore creatore = new Entities.Creatore();
-            //creatore.CreatoreName = "Все марки";
-            //creatore.CreatoreID = 0;
-            //categories.Insert(0, creatore);	
-            //Category_Sort.ItemsSource = categories;	
-            //Category_Sort.DisplayMemberPath = "CreatoreName";	
-            //Category_Sort.SelectedValuePath = "CreatoreID"; 		
+        {	
 
         }
 

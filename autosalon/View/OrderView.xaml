@@ -77,7 +77,7 @@
 
 
 
-            <Label Grid.Row="2" Grid.Column="0" Content="Сумма на карте:" VerticalAlignment="Top"  FontSize="15" Foreground="White" />
+            <Label Grid.Row="2" Grid.Column="0" Content="Сумма заказа:" VerticalAlignment="Top"  FontSize="15" Foreground="White" />
             <Label Grid.Row="2" Grid.Column="0" Name="Summ" Content="" VerticalAlignment="Bottom"  FontSize="15" Foreground="White" />
             <Button Grid.Column="1" Grid.Row="2" Width="200px" Height="50px" Name="CreateOrder" Content="Оформить заказ" FontSize="20" Style="{DynamicResource SecondBtn}" Click="CreateOrder_Click"/>
         </Grid>

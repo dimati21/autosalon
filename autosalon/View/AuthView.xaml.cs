@@ -76,25 +76,13 @@ namespace autosalon.View
                 password = PasswordTXT.Password;
             }
 
-            //string sql = $"SELECT * FROM [User] Where [User].Login = '{login}' and [User].Password = '{password}'";
-            //Entities.User userSearch = App.DB.User.SqlQuery(sql).ToList().FirstOrDefault();
-
-            //SqlParameter paramLogin = new SqlParameter("@Login", login)
-            //SqlParameter paramPassword = new SqlParameter("@Password", password)
-            //string sql = $"SELECT * FROM [User] Where [User].Login = '{login}' and [User].Password = '{password}'";
-
-            //List<Entities.User> users = (List<Entities.User>) from u in App.DB.User where u.Login == login && u.Password == password select u;
-
-            //var users = from u in App.DB.User where u.Login == login && u.Password == password select u;
-
-            //Entities.User user = (from u in App.DB.User where u.Login == login && u.Password == password select u).FirstOrDefault();
-
             Entities.User userSearch = App.DB.User.Where(u => u.Login == login && u.Password == password).ToList().FirstOrDefault();
 
 
             //if (LoginTXT.Text == App.login && PasswordTXT.Password == App.password)
             if (userSearch != null && k > 0)
             {
+                MessageBox.Show($"Вы успешно авторизовались");
                 View.KatalogView createKatalogView = new View.KatalogView();
                 this.Hide();
                 createKatalogView.ShowDialog();

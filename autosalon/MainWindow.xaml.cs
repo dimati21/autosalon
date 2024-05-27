@@ -73,9 +73,8 @@ namespace autosalon
 
         private void OrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            Random rnd = new Random();
-            int value = rnd.Next(0, 10000);
-            View.OrderView createOrderView = new View.OrderView(value);
+
+            View.OrderView createOrderView = new View.OrderView();
             this.Hide();
             createOrderView.ShowDialog();
             this.Show();
